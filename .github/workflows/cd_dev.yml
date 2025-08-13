@@ -1,0 +1,29 @@
+name: Deploy to dev
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  redeploy:
+    name: Deploying the app to dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute remote SSH commands using SSH key
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 192.168.1.13
+          username: anuj
+          key: ${{ secrets.SSH_SECRET_KEY }}
+          port: 22
+          script: |
+            cd bms
+            git pull origin main
+            npm i -g pnpm
+            pnpm install
+            pnpm build
+            pm2 restart http-server
+            pm2 restart web-server
+            pm2 restart socket-server
