@@ -6,9 +6,9 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>{user?.username}</h1>
-      <p>{user?.email}</p>
-      <p>{user?.password}</p>
+      <h1>Fullname: {user?.username}</h1>
+      <p>Email is: {user?.email}</p>
+      <p>Password is: {user?.password}</p>
     </div>
   );
 }
