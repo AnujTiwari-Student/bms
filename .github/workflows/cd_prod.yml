@@ -1,43 +1,43 @@
-name: Deploy to dev
+name: Deploy to prod
 
 on:
   push:
     branches:
-      - main
+      - production
 
 jobs:
   redeploy:
-    name: Deploying the app to dev
+    name: Deploying the app to prod
     runs-on: self-hosted
 
     steps:
       - name: Execute remote SSH commands using SSH key
         uses: appleboy/ssh-action@v1
         with:
-          host: 192.168.1.13
+          host: 54.172.80.133
           username: anuj
-          key: ${{ secrets.SSH_SECRET_KEY }}
+          key: ${{ secrets.SSH_SECRET_KEY_PROD }}
           port: 22
           script: |
             cd bms
-            git pull origin main
+            git pull origin production
             pnpm install
             pnpm build
-
+            
             # Handle http-server
             if pm2 list | grep -q "http-server"; then
               pm2 restart http-server
             else
               pm2 start npm --name "http-server" -- start
             fi
-
+            
             # Handle web-server
             if pm2 list | grep -q "web-server"; then
               pm2 restart web-server
             else
               pm2 start npm --name "web-server" -- start
             fi
-
+            
             # Handle socket-server
             if pm2 list | grep -q "socket-server"; then
               pm2 restart socket-server
