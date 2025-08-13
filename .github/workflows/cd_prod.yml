@@ -20,7 +20,8 @@ jobs:
           port: 22
           script: |
             cd bms
-            git pull origin production
+            git fetch origin
+            git reset --hard origin/main
             pnpm install
             pnpm build
             pm2 restart http-server
