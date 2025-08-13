@@ -21,7 +21,6 @@ jobs:
           script: |
             cd bms
             git pull origin main
-            npm i -g pnpm
             pnpm install
             pnpm build
             pm2 restart http-server
