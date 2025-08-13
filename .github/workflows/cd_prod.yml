@@ -23,24 +23,6 @@ jobs:
             git pull origin production
             pnpm install
             pnpm build
-            
-            # Handle http-server
-            if pm2 list | grep -q "http-server"; then
-              pm2 restart http-server
-            else
-              pm2 start npm --name "http-server" -- start
-            fi
-            
-            # Handle web-server
-            if pm2 list | grep -q "web-server"; then
-              pm2 restart web-server
-            else
-              pm2 start npm --name "web-server" -- start
-            fi
-            
-            # Handle socket-server
-            if pm2 list | grep -q "socket-server"; then
-              pm2 restart socket-server
-            else
-              pm2 start npm --name "socket-server" -- start
-            fi
+            pm2 restart http-server
+            pm2 restart web-server
+            pm2 restart socket-server
