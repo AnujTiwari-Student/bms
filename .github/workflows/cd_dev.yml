@@ -7,7 +7,7 @@ on:
 
 jobs:
   redeploy:
-    name: Deploying the app to dev
+    name: Deploying the app to development
     runs-on: self-hosted
 
     steps:
