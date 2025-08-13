@@ -7,7 +7,7 @@ export default async function Home() {
   return (
     <div>
       <p>Name is: {user?.username || "Anuj"}</p>
-      <p>Email is: {user?.email}</p>
+      <p>Email is: {user?.email || "anuj@test"}</p>
       <p>Password is: {user?.password}</p>
     </div>
   );
